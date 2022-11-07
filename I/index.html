@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            background-color: gray;
+        }
+        td,tr{
+            padding:5px;
+            text-align:center;
+        }
+    </style>
+
+
+    <script>
+        document.write("<h1>I. Składnia JavaScript, instrukcje sterujące</h1>")
+        document.write("<hr>");
+        document.write("<h2>1. Na stronie wypisz:<h2>");
+
+
+        document.write("<h4>- wytłuszczony napis \"Witaj JavaScript\"</h4>");
+        document.write("<b>Witaj JavaScript</b>")
+        document.write("<hr>");
+
+
+        document.write("<h4>- jedna pod drugą liczby z zakresu: <-22;22)</h4>");
+        for(var x=-22;x<22;x++){
+            document.write(x);
+            document.write("<br>");
+        }
+        document.write("<hr>")
+
+
+        document.write("<h4>- malejąco co piątą liczbę (oddzielone spacjami) z zakresu: (-15;55></h4>");
+        for(var c=55;c>-15;c--){
+            if(c%5==0){
+                document.write(c);
+                document.write(" ");
+            }
+        }
+        document.write("<hr>");
+
+
+        document.write("<h4>- malejąco liczby z zakresu: <10;40> /\ (15;25)</h4>");
+        for(var z=40;z>=10;z--){
+            if(z>=25||z<=15){
+                document.write(z);
+                document.write(" ");
+            }
+        }
+        document.write("<hr><hr>");
+        
+
+        document.write("<h2>2. W konsoli wypisz:<h2>");
+        document.write("<h4>- liczby nieparzyste z przedziału: <-40;40/) /\ <3;30/)</h4>");
+        for(var x=-40;x<40;x++){
+            if((x<3||x>=30)&&(x%2==1||x%2==-1)){
+               console.log(x);
+            }
+        }
+        console.log("--_____0_____--");
+
+
+        document.write("<h4>- liczby parzyste z przedziału: <-20;20) /\ (5;10)</h4>");
+        for(var x=-20;x<20;x++){
+            if(x%2==0&&(x>10||x<5)){
+               console.log(x);
+            }
+        }
+        console.log("--_____0_____--");
+
+
+        document.write("<h4>- tylko liczby podzielne przez 7 z przedziału: <-100;41) /\ (-28;14)</h4>");
+        for(var x=-100;x<41;x++){
+            if(x%7==0&&(x>=14||x<=-28)){
+               console.log(x);
+            }
+        }
+
+
+        var user = window.prompt("zapodaj cyferkę"); //string
+      //  var user=6;
+        document.write("<h2>3. Używając okna dialogowego pobierz wartość od użytkownika i wypisz na stronie (np. dla liczby 6):<h2><pre>");
+        document.write("<h4>a)</h4>");
+        for(var x=user;x>0;x--){
+            document.write("X");
+        }
+
+
+        document.write("<h4>b)</h4>");
+        for(var x=user;x>0;x--){
+            document.write("X ");
+        }
+        document.write("<br>");
+        for(var c=user-2;c>0;c--){
+            document.write("X ");
+            for(var x=user-2;x>0;x--){
+                document.write("  ");
+            }
+            document.write("X");
+            document.write("<br>");
+        }
+        for(var x=user;x>0;x--){
+            document.write("X ");
+        }
+
+
+        document.write("<h4>c)</h4>");
+        for(var x=0;x<user;x++){
+            for(var c=user;c>0;c--){
+                if(c==1||c==x+1||x==user-1){
+                    document.write("X");
+
+                }
+                else{
+                    document.write(" ");
+                }
+            }
+            document.write("<br>");
+        }
+
+
+        document.write("<h4>d)</h4>");
+        for(var x=0;x<=user;x++){
+            for(var c=1;c<x+1;c++){
+                document.write(c);
+            }
+            document.write("<br>");
+        }
+
+
+        document.write("<h4>e)</h4>");
+        for(var x=0;x<user;x++){
+            for(var f=x+1;f<user;f++){
+                document.write(" ");
+            }
+
+
+            for(var c=x+1;c>0;c--){
+                document.write(c);
+            }
+            document.write("<br>");
+        }
+
+        document.write("<h4>f)</h4>");
+        document.write(user*user);
+
+        document.write("<h4>g)</h4>");
+        var suma=0;
+        for(var x=0;x<=user;x++){
+            if(x%2==0){
+                suma+=x;
+            }
+        }
+        document.write(suma);
+
+
+
+
+
+        document.write("<h4>h)</h4>");
+        console.log("Liczba jest ")
+        if(user%2==0){
+        console.log("parzysta.");
+        }
+        else{
+        console.log("nieparzysta.");
+        }
+
+
+
+
+
+
+
+        document.write("<h4>i)</h4></pre>");
+
+        
+			document.write("<table style=\"margin:auto\" >");
+			for(let x=0;x<=10;x++){
+				document.write("<tr>");
+				
+				for(let y=0;y<=10;y++){
+					if(x!==y){
+						if((x!==0)&&(y!==0)){
+							if(((x%2==1)||(y%2==1))){
+								document.write('<td style="background-color:red;">'+x*y+'</td>');
+							}
+							else{
+								document.write('<td style="background-color:green;">'+x*y+'</td>');
+							}
+						}
+						else{
+							if(x==0){
+								document.write('<td style="background-color:lightblue;">'+y+'</td>');
+							}
+							if(y==0){
+								document.write('<td style="background-color:lightblue;">'+x+'</td>');
+							}
+						}
+					}
+					else{
+						document.write('<td style="background-color:yellow;"></td>');
+					
+					}
+					
+				}
+				document.write("</tr>");
+			}
+			document.write("</table>");
+            function regonchecker(){
+                tab9=[8, 9, 2, 3, 4, 5, 6, 7]
+                tab14=[2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8]
+                var suma=0;
+                console.log("checking regon")
+                var regon =document.getElementById("REGON").value;
+                console.log(regon)
+                if(regon.length==9){
+
+                    console.log("9 regon")
+                    regon= regon.toString()
+                    console.log(regon)
+                    for(let i=0;i<8;i++){
+                        suma=suma+tab9[i]*regon.charAt(i)
+                    }
+                    console.log(suma)
+                    suma=suma%11
+                    console.log(suma)
+                    if(suma==regon.charAt(8)){
+                        confirm("ok")
+                    }
+                    else{
+                        confirm("no ok")
+                    }
+                }
+                else if(regon.length==14){
+
+                    console.log("14 regon")
+                    regon= regon.toString()
+                    console.log(regon)
+                    for(let i=0;i<13;i++){
+                        suma=suma+tab14[i]*regon.charAt(i)
+                    }
+                    console.log(suma)
+                    suma=suma%11
+                    console.log(suma)
+                    if(suma==regon.charAt(13)){
+                        confirm("ok")
+                    }
+                    else{
+                        confirm("no ok")
+                    }
+                }
+                else{
+                    confirm("niepoprawna wartosc regonu")
+                }
+            }
+    </script>
+            <h2>REGON checker</h2>
+            <input type="number" id="REGON"></input>
+            <button onclick="regonchecker()" >check</button>
+</body>
+</html>

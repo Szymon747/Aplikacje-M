@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            background-color: gray;
+	        text-overflow: break-word;
+        }
+    </style>
+    <script>
+        var tekst=window.prompt("podaj nic wieksza od 2000 ale podzielna przez 3")
+        console.log(tekst);
+        var tekstUP = tekst.toUpperCase();
+        console.log(tekstUP);
+
+        var tekstpom="";
+        document.write("wejście:<br>")
+        document.write(tekst)
+        for(var x=0; x<tekstUP.length;x++){
+            if(x%3==0&& x!==0){
+                tekstpom += " ";
+
+            }
+            tekstpom+=tekstUP[x];
+
+        }
+        console.log(tekstpom);
+        var tekstarr= tekstpom.split(" ");
+     //   document.write(tekstarr);
+    
+        document.write("<br>")
+        for(var x=0; x<tekstUP.length/3;x++){
+            if(tekstarr[x]=="ATG"){
+                document.write("<mark style=\"background-color:green;font-weight:900;\">")
+                document.write(tekstarr[x])
+                document.write("</mark>")
+
+            }
+            else if(tekstarr[x]=="TAA"||tekstarr[x]=="TGA"||tekstarr[x]=="TAG"){
+
+                document.write("<mark>")
+                document.write(tekstarr[x])
+                document.write("</mark>");
+            }
+            else{
+                document.write(tekstarr[x])
+            }
+            document.write("&nbsp")
+        }
+        document.write("<br><br>")
+
+
+
+
+
+
+        document.write("<br><br>");
+       // document.write(tekstpom);
+       // document.write("<br><br>");
+       // document.write("<br><br>");
+        var reversedtekst="";
+        for(var x=0;x<tekstpom.length;x++){
+            if(tekstpom[x]=="A"){
+                reversedtekst+="T";
+          //  document.write(x);  
+            }
+            else if(tekstpom[x]=="T"){
+                reversedtekst+="A";
+          //  document.write(x);  
+            }
+            else if(tekstpom[x]=="C"){
+                reversedtekst+="G";
+         //   document.write(x);  
+            }
+            else if(tekstpom[x]=="G"){
+                reversedtekst+="C";
+          //  document.write(x);  
+            }
+        }  
+        document.write("<br><br>");
+       // document.write(reversedtekst);
+        document.write("<br><br>");
+        
+        var reversedtekstspace=""; 
+        
+        document.write("<p style=\"color:red\">NIC KOMPLEMENTARNA</p><br>") 
+        for(var x=0; x<tekstUP.length;x++){
+            if(x%3==0&& x!==0){
+                reversedtekstspace += " ";
+
+            }
+            reversedtekstspace+=reversedtekst[x];
+
+        }
+        document.write(reversedtekstspace);
+    //zliczanie
+        for(var x=0; x<tekstUP.length;x++){
+            if(x%3==0&& x!==0){
+                reversedtekstspace += " ";
+
+            }
+            reversedtekstspace+=reversedtekst[x];
+        }
+       // document.write(reversedtekstspace)
+        document.write("<br><br>");
+    
+        var reversedtekstarr= reversedtekstspace.split(" ");
+     //   document.write(reversedtekstarr)
+//-----------------------------------------------------------------------------
+        var ilosckombinacji=0;
+        var kombinacje=[];
+        var powtorzenia=[];
+        var found=0;
+        for(var x=0; x<tekstUP.length/3-1;x++){
+         //   document.write("<br><br>");
+         //   document.write(x);
+                    found=0;
+            for(var z=0;z<=ilosckombinacji;z++){
+            //    document.write("<br><br>");
+            //    document.write(z);
+                if(reversedtekstarr[x]==kombinacje[z]){
+                    powtorzenia[z]+=1;
+                    found=1;
+                }
+
+            }
+            if(found==0){
+                kombinacje[ilosckombinacji]=reversedtekstarr[x];       
+                ilosckombinacji++;
+                powtorzenia[z-1]=1;
+            }
+            
+            //document.write("<br>-<br>");
+            //document.write(ilosckombinacji);
+            //document.write("<br>-<br>");
+          ///  document.write(kombinacje);
+        //    document.write("<br>-<br>");
+       //     document.write(powtorzenia);
+        }
+        document.write("<br>------------<br>ilosc kombinacji<br>");
+        document.write(ilosckombinacji);
+        document.write("<br>-<br>wszystkie kombinacje<br>");
+        document.write(kombinacje);
+        document.write("<br>-<br>");
+        document.write(powtorzenia);
+        document.write("<br><br>");
+      /*  
+        for(var x=0;x<64;x++){
+            document.write(x + " ");
+            document.write(kombinacje[x] + " ");
+            document.write(powtorzenia[x]);
+            document.write("<br>");
+
+            
+        }
+        
+       var sumaagain=0;
+        for(var x=0;x<64;x++){
+            sumaagain+= powtorzenia[x];
+
+            
+        }
+      //  document.write("  " + sumaagain);    
+
+
+      
+
+      
+        document.write(powtorzenia);
+        document.write("<br>");
+        document.write(kombinacje);
+        document.write("<br>");
+        document.write("<br>");
+        */
+        for(let i=0; i<64;i++){
+            let key=powtorzenia[i];
+            let key2=kombinacje[i];
+            let j=i-1;
+            while(j>=0&&powtorzenia[j]>key){
+                powtorzenia[j+1]=powtorzenia[j];
+                kombinacje[j+1]=kombinacje[j];
+                j--;
+
+            }
+            powtorzenia[j+1]=key;
+            kombinacje[j+1]=key2;
+        }
+
+        let colorr=0;
+        let colorg=0;
+        let colorb=0;
+        for(var x=63;x>=0;x--){
+            if((x+2)%5==0){
+                colorr=Math.random() * 255;
+                colorg=Math.random() * 255;
+                colorb=Math.random() * 255;
+            }
+            document.write("<mark style=\"background-color:rgb("+colorr+","+colorg+","+colorb+");\" >");
+            document.write(kombinacje[x]);
+            document.write(" - ");
+            document.write(powtorzenia[x]);
+            document.write("<br>");
+            document.write("</mark>");
+            
+        }
+    
+    </script>
+</body>
+</html>

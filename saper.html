@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Henny+Penny">
+</head>
+<body>
+    <style>
+        html,body{
+            padding:0px;
+            margin:0px;
+            background-color: #aaa;
+        }
+        span{
+            background-color: #888;
+            padding:3px;
+            border-radius: 5px;
+            border:solid 1px #666;
+            font-family: "Henny Penny", sans-serif;
+
+        }
+
+        input{
+            border-radius: 8px;
+
+        }
+        .tile{
+            width:16px;
+            height:16px;
+            border:black 1px solid;
+            float:left;
+            text-align: center;
+        }
+        .clear
+        {
+            clear:both;
+        }
+        .butek{
+            width:140px;
+            height:40px;
+            background-color: aquamarine;
+            position:absolute;
+            top:370px;
+            left:60px;
+            border:rgb(127, 146, 255) 2px solid;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 250%;
+            font-family: "Henny Penny", sans-serif;
+        }
+        .clicked{
+            background-color: gray;
+        }
+        /* 
+        .bombed{
+            background-color: red;
+        } */
+
+        .inputW{
+            position:absolute;
+            top:100px;
+            left:40px;
+        }
+        .inputH{
+            position:absolute;
+            top:200px;
+            left:40px;
+        }
+        .bomb{
+            position:absolute;
+            top:300px;
+            left:40px;
+        }
+
+        .kontener{
+            margin-left:300px;
+            margin-top:100px
+        }
+        .bombs-text{
+            position:absolute;
+            top:255px;
+            left:100px;
+
+        }
+        .width-text{
+            position:absolute;
+            top:155px;
+            left:100px;
+
+        }
+        .height-text{
+            position:absolute;
+            top:55px;
+            left:100px;
+
+        }
+
+    </style>
+
+
+
+    <script>
+        var gamestarted=false
+        var timeend
+        var wygrana
+        var przegrana
+        var testedtiles=0
+        var height
+        var width
+        let bombs
+        var array=[
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0]];    
+                
+                
+        var tested=[
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0]];
+                       
+        var clicked_tiles=[
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0],
+                [0, 0]];
+      
+
+
+        let div = document.createElement("div");                                    //tworzenie interefejsu
+
+        let inputW = document.createElement("input");
+        let inputH = document.createElement("input");
+        let bomb = document.createElement("input");
+        let go = document.createElement("div");
+        let text1 = document.createElement("span");
+        let text2 = document.createElement("span");
+        let text3 = document.createElement("span");
+
+        text1.innerHTML="Height"
+        text2.innerHTML="Width"
+        text3.innerHTML="Bombs"
+        inputW.classList.add("inputW");
+        inputH.classList.add("inputH");
+        bomb.classList.add("bomb");
+        div.classList.add("kontener");
+
+        text1.classList.add("width-text");
+        text2.classList.add("height-text");
+        text3.classList.add("bombs-text");
+
+        // inputW.setAttribute("type","number");
+        // inputH.setAttribute("type","number");
+       // bomb.setAttribute("type","number");
+        go.classList.add("butek");
+        go.innerHTML="PLAY"
+
+        // inputW.value=10;
+        // inputH.value=10;
+        // bomb.value=10;
+
+        document.body.appendChild(text1);
+        document.body.appendChild(text2);
+        document.body.appendChild(text3);
+        document.body.appendChild(inputW);
+        document.body.appendChild(inputH);
+        document.body.appendChild(bomb);
+        document.body.appendChild(go);
+
+        let czas = document.createElement("div")
+        let czas_start_m
+
+        
+        function rightClicked(x,y){
+            event.preventDefault()
+
+            console.log("right clicked"+x+y)
+            
+            let tile=document.getElementById("IMG"+x+"_"+y)
+            let naklejka=tile.getAttribute('src')
+            if(naklejka=="img/flaga.PNG"){
+                tile.setAttribute("src","img/pyt.PNG")
+            }
+            else if(naklejka=="img/pyt.PNG"){
+                tile.setAttribute("src","img/klepa.PNG")
+            }
+            else if(naklejka=="img/klepa.PNG"){
+                tile.setAttribute("src","img/flaga.PNG")
+            }
+        }
+
+        function rysuj(x,y) {
+            
+            //console.log("rysuj dla"+x+y)
+            if(array[x][y]=="bomb"){
+
+                // var rysuje=document.getElementById(x+"_"+y)
+                // rysuje.innerHTML=array[x][y]
+                let stary_img=document.getElementById("IMG"+x+"_"+y)
+                stary_img.remove();
+                let tile=document.getElementById(x+"_"+y)
+                let f_img=document.createElement("img")
+                f_img.setAttribute("src","img/bomb.PNG")
+                tile.appendChild(f_img);
+            }
+            else{
+                var rysuje=document.getElementById(x+"_"+y)
+                rysuje.innerHTML=array[x][y]
+            }
+            return 0;
+        }
+
+
+
+
+        go.onclick = function(){
+            console.log("kliknieto");
+            gamestarted=true
+            czas_start_m = Date.now();                                //pobranie czasu
+
+            
+
+
+            height=inputH.value
+            width=inputW.value
+            bombs=bomb.value
+            if(bombs>1&&width>1&&height>1){
+
+            
+
+                for(let y=0; y<height;y++){                              //generowanie tabeli
+                    for(let x=0; x<width;x++){  
+                        tested[x][y]=0
+                    }
+                }
+
+                
+                function clicked(x,y){
+                    // let naklejka2=""
+                     console.log(x+" "+y)
+                    // let tile=document.getElementById("IMG"+x+"_"+y)
+                    // if(tile.hasAttribute('src')){
+                    //     naklejka2=tile.getAttribute('src')
+
+                    // }
+                    // else{
+                    //     naklejka2="img/klepa.PNG"
+                    // }
+                    // console.log("naklejka"+naklejka2)
+                    
+                    if(przegrana!=true&&wygrana!=true){
+
+                    
+                        //   console.log("clicked dla"+x+y)
+                        clicked_tiles[x][y]=1
+                        
+                        testedtiles=0;
+                        for(let c=0; c<height;c++){                              //generowanie tabeli
+                            for(let v=0; v<width;v++){  
+                                if(clicked_tiles[v][c]==1){
+                                    testedtiles++;
+                                    if(testedtiles==width*height-bombs){
+                                        console.log("Wygrana")
+                                        wygrana=true;
+                                        przegrana=false;
+                                        gamestarted=false;
+
+                                        confirm("wygrana")
+                                    }
+                                }
+                            }
+                        }
+
+                            
+                            if(array[x][y]=="bomb"){
+                                console.log("przegrales");
+                                przegrana=true;
+                                wygrana=false;
+                                gamestarted=false;
+                                rysuj(x,y)
+                                confirm("przegrana")                                            //przegrana
+                                
+                                for(let c=0; c<height;c++){                             
+                                    for(let v=0; v<width;v++){   
+                                        if(array[v][c]=='bomb'){
+                                            console.log("v: "+v+",c: "+c)
+                                            
+                                            let stary_img=document.getElementById("IMG"+v+"_"+c)
+                                            stary_img.setAttribute("src","img/bomb.PNG")
+                                            console.log("byo")
+
+
+                                            
+
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                rysuj(x,y)
+                                if(array[x][y]=="0"&&tested[x][y]!=1){
+                                    tested[x][y]=1;
+                                    if(x-1>=0&&tested[x-1][y]!==1){
+                                        clicked(x-1,y);
+                                    }
+                                    if(x+1<width&&tested[x+1][y]!==1){
+                                        clicked(x+1,y);
+                                    }
+                                    if(y!==height-1&&tested[x][y+1]!==1){
+                                        clicked(x,y+1);
+                                    }
+                                    if(y!==0&&tested[x][y-1]!==1){
+                                        clicked(x,y-1);
+                                    }
+
+                                    
+                                    if(x-1>=0&&y!==0&&tested[x-1][y-1]!==1){
+                                        clicked(x-1,y-1);
+                                    }
+                                    if(x+1<width&&y!==height-1&&tested[x+1][y+1]!==1){
+                                        clicked(x+1,y+1);
+                                    }
+                                    if(x+1<width&&y!==0&&tested[x+1][y-1]!==1){
+                                        clicked(x+1,y-1);
+                                    }
+                                    if(x-1>=0&&y!==height-1&&tested[x-1][y+1]!==1){
+                                        clicked(x-1,y+1);
+                                    }
+
+                                }
+                            }
+                    }
+                }
+
+                for(let y=0; y<height;y++){                              //generowanie tabeli
+                    for(let x=0; x<=width;x++){  
+                        
+                        let tile = document.createElement("div");
+
+                        if(x==width){
+                            tile.classList.add("clear");
+                        }
+                        else{
+                            tile.classList.add("tile");
+                            tile.setAttribute("id",x+"_"+y)	
+                            let f_img=document.createElement("img")
+                            f_img.setAttribute("src","img/klepa.PNG")
+                            f_img.setAttribute("id","IMG"+x+"_"+y)	
+                            tile.appendChild(f_img);
+
+                            
+                            tile.addEventListener("click", function () {
+                                tile.classList.add("bombed");
+                                clicked(x,y)
+                            }, false)
+                            tile.setAttribute("oncontextmenu","rightClicked("+x+","+y+")")
+                        }
+
+
+                        div.appendChild(tile);
+
+                    }
+                }
+
+
+                for(let y=0; y<height;y++){                                                  //rozciaganie tabeli                
+                    for(let x=0; x<width;x++){
+                        array[x][y]=0;
+                        tested[x][y]=0;
+                    }
+
+                }
+
+
+            
+
+
+                
+                function flar(x,y) {      
+                    
+                    console.log("flar dla"+x+y)                                              //funkcja flar nadaje cyferki
+                    if(x>=0&&x<width&&y>=0&&y<height){
+                        if(array[x][y]!="bomb"){
+                            array[x][y]+=1;
+                        }
+                    }
+                        return x;
+                }
+
+
+                for(let y=0;y<bombs;y++){                                                        // generowanie wartości randowmowej|||| przypisywanie bomb
+                    var bombedplacex=Math.floor(Math.random() * width);
+                    var bombedplacey=Math.floor(Math.random() * height);
+                    console.log(bombedplacex)
+                    console.log(bombedplacey)
+                    console.log(bombs)
+                    console.log(y)
+                    if(array[bombedplacex][bombedplacey]!="bomb"){
+                        array[bombedplacex][bombedplacey]="bomb";
+
+                        flar(bombedplacex+1,bombedplacey)
+                        flar(bombedplacex+1,bombedplacey+1)
+                        flar(bombedplacex+1,bombedplacey-1)
+                        flar(bombedplacex-1,bombedplacey+1)
+                        flar(bombedplacex-1,bombedplacey)
+                        flar(bombedplacex-1,bombedplacey-1)
+                        flar(bombedplacex,bombedplacey+1)
+                        flar(bombedplacex,bombedplacey-1)
+
+                    }
+                    else{
+                        y--;
+                    }
+                }
+                
+                console.table(array)
+
+
+            
+            }
+            else{
+                
+                confirm('Wartości "Height, Width,Bombs" muszą być wartością liczbową większą od zera.')
+            }
+        }
+
+        document.body.appendChild(div);
+        
+
+
+
+        
+
+
+        setInterval(function () {
+            const time_m = Date.now();
+            roznica_m=time_m - czas_start_m;
+            let m=new Date(roznica_m);
+            if(gamestarted==true){
+                czas.innerHTML="czas:"+(m.getSeconds()+m.getMinutes()*60)
+                div.appendChild(czas);
+            }
+            if(wygrana==true&&gamestarted==true){
+                timeend=m;
+                console.log(timeend)
+                let seconds = timeend.getSeconds();
+                console.log(seconds)
+                window.clearInterval()
+            }
+        }, 1000);
+
+
+        setInterval(function () {
+           
+            height=inputH.value
+            width=inputW.value
+            bombs=bomb.value
+            if(!(height>1)){
+                inputH.value="";
+            }
+            if(!(width>1)){
+                inputW.value="";
+            }
+            if(!(bombs>1)){
+                bomb.value="";
+            }
+        }, 1000);
+
+
+    </script>
+</body>
+</html>
